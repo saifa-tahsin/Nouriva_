@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nouriva | AI Food & Health Scanner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <p class="app-name">Nouriva</p>
+      <h1 class="page-title">AI Food &amp; Health Scanner</h1>
+      <p class="header-subtitle">Understand your meal, one bite at a time.</p>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="card scanner-card">
+      <h2>Meal Scanner</h2>
+      <p class="card-intro">Add one or more foods to estimate nutrition for your meal. You can also upload a photo.</p>
+
+      <form id="food-form">
+        <div id="food-rows" class="food-rows">
+          <div class="food-row">
+            <label class="field food-name-field">
+              <span>Food name</span>
+              <input class="food-name" type="text" placeholder="e.g. rice, chicken curry" autocomplete="off" required>
+            </label>
+            <label class="field quantity-field">
+              <span>Quantity</span>
+              <input class="food-quantity" type="number" min="0.1" step="0.1" value="1" required>
+            </label>
+            <label class="field unit-field">
+              <span>Unit</span>
+              <select class="food-unit">
+                <option value="serving">serving</option>
+                <option value="g">g</option>
+                <option value="ml">ml</option>
+                <option value="cup">cup</option>
+                <option value="piece">piece</option>
+                <option value="tbsp">tbsp</option>
+                <option value="tsp">tsp</option>
+              </select>
+            </label>
+            <button class="remove-btn" type="button" aria-label="Remove this food" disabled>Remove</button>
+          </div>
+        </div>
+
+        <button id="add-food-button" class="secondary-btn" type="button">+ Add another food</button>
+
+        <div class="field image-field">
+          <span class="field-label">Upload meal photo (optional)</span>
+          <label class="upload-box" for="food-image">
+            <input id="food-image" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+            <img id="image-preview" alt="Meal preview" hidden>
+            <span id="upload-title">Choose a food image (JPG, PNG or WEBP; under 7 MB)</span>
+          </label>
+        </div>
+
+        <button id="analyze-button" class="analyze-btn" type="submit"><span id="button-label">Analyze my meal</span></button>
+        <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section id="result-card" class="card result-card" hidden>
+      <div class="result-heading">
+        <div>
+          <p class="eyebrow">YOUR MEAL</p>
+          <h2 id="result-title">Combined Nutrition Result</h2>
+        </div>
+        <span class="estimate-badge">Estimated values</span>
+      </div>
+
+      <h3 class="section-heading">Combined total</h3>
+      <div class="macro-grid">
+        <article class="macro calorie-macro"><p>Calories</p><strong id="total-calories">—</strong><span>kcal</span></article>
+        <article class="macro"><p>Protein</p><strong id="total-protein">—</strong><span>g</span></article>
+        <article class="macro"><p>Carbohydrates</p><strong id="total-carbs">—</strong><span>g</span></article>
+        <article class="macro"><p>Fat</p><strong id="total-fat">—</strong><span>g</span></article>
+      </div>
+
+      <h3 class="section-heading">Nutrition by food</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Food</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fat</th></tr></thead>
+          <tbody id="food-results"></tbody>
+        </table>
+      </div>
+
+      <div class="result-columns">
+        <section class="result-subsection">
+          <h3>Ingredients</h3>
+          <ul id="ingredients-list"></ul>
+        </section>
+        <section class="result-subsection">
+          <h3>Nutrition notes</h3>
+          <p id="info-text">Nutrition values are estimates.</p>
+        </section>
+      </div>
+      <p class="disclaimer">Nutrition estimates can vary with recipe, cooking method and portion size. This tool is for general information, not medical advice.</p>
+    </section>
+    <footer class="footer">NutriAI · AI Food &amp; Health Scanner</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

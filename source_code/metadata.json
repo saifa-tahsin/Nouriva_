@@ -1,0 +1,6 @@
+{
+  "name": "Nouriva - Health & Nutrition AI Dashboard",
+  "description": "AI-powered personalized nutrition, health vitals, budget meal planner, and team collaboration dashboard with professional authentication.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

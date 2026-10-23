@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Food Assistant – Learn Sphere</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="feature4-header assistant-header">
+  <div class="header-topline"><div><h1 data-i18n="assistantTitle">Food Assistant</h1>
+  <p data-i18n="assistantSub">Ask about food, nutrition and recipes.</p></div><label class="language-control"><span data-i18n="language">Language</span><select id="languageSelect" aria-label="Language"><option value="en">English</option><option value="bn">বাংলা</option><option value="hi">हिन्दी</option></select></label></div>
+  <nav>
+    <a href="tracker.html" data-i18n="foodLog">Food Log</a>
+    <a href="assistant.html" class="active" data-i18n="foodAssistant">Food Assistant</a>
+  </nav>
+</header>
+
+<!-- ============================================================================
+     PART B — CONVERSATIONAL AI FOOD ASSISTANT  (HTML)
+     ============================================================================ -->
+<main>
+  <section class="assistant-hero"><div class="robot-orb" aria-hidden="true">🤖</div><div><p class="hero-kicker">NOURIVA AI</p><h2 data-i18n="assistantBanner">Your friendly nutrition robot</h2><p data-i18n="assistantBannerSub">Ask me what to eat, how to balance a meal, or what you can cook.</p></div><span class="hero-food" aria-hidden="true">🥑 🍎 🥗</span></section>
+  <div class="card chat">
+    <!-- B.1: Chat interface -->
+    <div id="chatLog" aria-live="polite"></div>
+    <div class="chips" id="chips"></div>
+    <form class="chatForm" id="chatForm">
+      <input id="chatInput" data-i18n-placeholder="placeholder" placeholder="e.g. I have egg, rice and potato. What can I cook?" maxlength="500" autocomplete="off">
+      <button class="btn" id="sendBtn" data-i18n="send" type="submit">Send</button>
+    </form>
+    <p class="note" data-i18n="disclaimer">General food information only. For medical conditions, please talk to a doctor or registered dietitian.</p>
+  </div>
+</main>
+
+<script src="js/language.js"></script>
+<script src="js/common.js"></script>
+<script src="js/assistant.js"></script>
+</body>
+</html>

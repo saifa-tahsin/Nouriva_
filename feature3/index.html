@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Foodsphere Nutritio Intelligence: a budget-aware meal planner using Bangladeshi foods and prices in BDT.">
+  <title data-i18n="doc_title">Foodsphere Nutritio Intelligence | Budget-Aware Meal Planner</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2315803d'/%3E%3Cpath d='M18 36h28a14 14 0 0 1-28 0z' fill='%23fbf6e9'/%3E%3Cpath d='M32 30c-8 0-10-8-4-14 8 0 12 8 4 14z' fill='%2386efac'/%3E%3C/svg%3E">
+  <!-- Optional web fonts (Plus Jakarta Sans for English, Hind Siliguri for Bangla). Offline, the app falls back to system fonts (Segoe UI / Nirmala UI on Windows). -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip_link">Skip to main content</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="28" height="28" fill="none">
+            <path d="M8 26h32a16 16 0 0 1-32 0z" fill="#fbf6e9"/>
+            <path d="M24 22c-8 0-11-8-5-15 9 0 13 8 5 15z" fill="#86efac"/>
+            <path d="M24 22V12" stroke="#14532d" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">Foodsphere <span>Nutritio Intelligence</span></h1>
+          <p class="brand-badge" data-i18n="brand_badge">Budget-Aware Meal Planner</p>
+        </div>
+      </div>
+      <div class="header-tools">
+        <div class="lang-switch" role="group" aria-label="Language switch" data-i18n-attr="aria-label:lang_aria">
+          <span class="lang-icon" aria-hidden="true">🌐</span>
+          <button type="button" class="lang-btn active" id="langEn" data-lang="en" lang="en" aria-pressed="true" title="English">English</button>
+          <button type="button" class="lang-btn" id="langBn" data-lang="bn" lang="bn" aria-pressed="false" title="বাংলা">বাংলা</button>
+        </div>
+        <div class="header-status" title="This planner uses transparent rules. No AI model or API is connected." data-i18n-attr="title:header_status_title">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span data-i18n="header_status">Rule-based planner · no AI API connected</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h2 id="heroTitle" data-i18n="hero_title">Eat well within your Taka budget</h2>
+        <p data-i18n="hero_text">Set a daily or weekly budget, tell us what you already have at home, and get a Bangladeshi meal plan with costs, nutrition and a ready shopping list.</p>
+        <ul class="hero-points" aria-label="What you get" data-i18n-attr="aria-label:hero_points_label">
+          <li><span aria-hidden="true">৳</span> <span data-i18n="hero_p1">Costs in BDT (estimates)</span></li>
+          <li><span aria-hidden="true">🥗</span> <span data-i18n="hero_p2">Calories &amp; macros</span></li>
+          <li><span aria-hidden="true">🛒</span> <span data-i18n="hero_p3">Smart shopping list</span></li>
+        </ul>
+      </div>
+      <div class="hero-art" id="heroArt" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <main id="main" class="dashboard-container">
+    <div class="dashboard-grid">
+
+      <!-- ===================== LEFT: SETTINGS ===================== -->
+      <section class="panel-inputs" aria-label="Plan settings">
+        <div class="card form-card">
+          <div class="card-header">
+            <h2 class="card-title"><span class="title-icon" aria-hidden="true">⚙️</span><span data-i18n="settings_title">Plan settings</span></h2>
+            <p class="card-subtitle" data-i18n-html="settings_sub">Three quick steps, then press <strong>Generate</strong>.</p>
+          </div>
+
+          <form id="mealPlannerForm" novalidate autocomplete="off">
+
+            <!-- Step 1: Budget -->
+            <fieldset class="form-group step">
+              <legend><span class="step-num">1</span> <span data-i18n="step1">Your budget</span></legend>
+
+              <div class="timeframe-toggle" role="group" aria-label="Budget period" data-i18n-attr="aria-label:period_aria">
+                <button type="button" class="btn-toggle active" data-timeframe="daily" id="toggleDaily" aria-pressed="true" data-i18n="daily">Daily</button>
+                <button type="button" class="btn-toggle" data-timeframe="weekly" id="toggleWeekly" aria-pressed="false" data-i18n="weekly">Weekly (7 days)</button>
+              </div>
+
+              <label for="budgetInput" class="form-label">
+                <span id="budgetLabelText">Daily Budget</span><span data-i18n="in_taka"> in Taka</span>
+              </label>
+              <div class="currency-input-wrapper" id="budgetWrapper">
+                <span class="currency-symbol" aria-hidden="true">৳</span>
+                <input type="text" id="budgetInput" name="budget" inputmode="decimal" placeholder="e.g. 250"
+                       aria-describedby="budgetHint budgetError" maxlength="12">
+                <span class="currency-code" aria-hidden="true" data-i18n="currency_suffix">BDT</span>
+              </div>
+              <p class="field-error" id="budgetError" role="alert" hidden></p>
+              <p class="form-hint" id="budgetHint">Your spending target for breakfast, lunch and dinner today.</p>
+
+              <div class="preset-row">
+                <span class="chips-label" id="presetLabel" data-i18n="quick_pick">Quick pick:</span>
+                <div class="preset-chips" id="budgetPresets" role="group" aria-labelledby="presetLabel"></div>
+              </div>
+            </fieldset>
+
+            <!-- Step 2: Pantry -->
+            <fieldset class="form-group step">
+              <legend><span class="step-num">2</span> <span data-i18n="step2">Food at home</span></legend>
+
+              <label for="ingredientInput" class="form-label" data-i18n="ing_label">Add what you already have</label>
+              <div class="inv-add">
+                <input type="text" id="ingredientInput" class="inv-name" placeholder="e.g. rice, eggs, আলু" maxlength="40" aria-describedby="pantryMessage" data-i18n-attr="placeholder:ing_ph">
+                <div class="inv-add-row">
+                  <div class="inv-field">
+                    <label for="ingredientQty" class="mini-label" data-i18n="qty_label">Amount (optional)</label>
+                    <input type="text" id="ingredientQty" class="inv-qty-new" inputmode="decimal" placeholder="e.g. 2" maxlength="10" data-i18n-attr="placeholder:qty_ph">
+                  </div>
+                  <div class="inv-field">
+                    <label for="ingredientUnit" class="mini-label" data-i18n="unit_label">Unit</label>
+                    <select id="ingredientUnit" class="inv-unit-new"></select>
+                  </div>
+                  <button type="button" id="btnAddIngredient" class="btn-secondary" data-i18n="add">Add</button>
+                </div>
+              </div>
+              <p class="form-hint" id="pantryMessage" role="status" data-i18n="pantry_msg_default">Press Enter or Add. Separate several items with commas. Type an amount to track your stock, or leave it empty if you have plenty.</p>
+
+              <div class="staples-helper">
+                <span class="chips-label" id="staplesLabel" data-i18n="staples_label">Common items (tap to add / remove):</span>
+                <div class="staples-list" id="quickStaples" role="group" aria-labelledby="staplesLabel"></div>
+              </div>
+
+              <div class="tags-container inventory-list" id="pantryTagsList" aria-label="Food at home" data-i18n-attr="aria-label:inv_list_aria"></div>
+              <p class="form-hint" id="pantryNote" hidden></p>
+            </fieldset>
+
+            <!-- Step 3: Preference -->
+            <fieldset class="form-group step" id="dietPreference">
+              <legend><span class="step-num">3</span> <span data-i18n="step3">Food preference</span></legend>
+              <div class="pref-grid">
+                <label class="pref-card"><input type="radio" name="preference" value="standard" checked>
+                  <span class="pref-body"><span class="pref-icon" aria-hidden="true">🍛</span><span><strong data-i18n="pref_standard">Balanced</strong><small data-i18n="pref_standard_sub">Everyday Bengali meals</small></span></span></label>
+                <label class="pref-card"><input type="radio" name="preference" value="high-protein">
+                  <span class="pref-body"><span class="pref-icon" aria-hidden="true">💪</span><span><strong data-i18n="pref_high_protein">High-protein</strong><small data-i18n="pref_high_protein_sub">Fish, egg, chicken, daal</small></span></span></label>
+                <label class="pref-card"><input type="radio" name="preference" value="vegetarian">
+                  <span class="pref-body"><span class="pref-icon" aria-hidden="true">🥬</span><span><strong data-i18n="pref_vegetarian">Vegetarian</strong><small data-i18n="pref_vegetarian_sub">No meat, fish or eggs</small></span></span></label>
+                <label class="pref-card"><input type="radio" name="preference" value="diabetic-friendly">
+                  <span class="pref-body"><span class="pref-icon" aria-hidden="true">🩺</span><span><strong data-i18n="pref_diabetic">Diabetic-friendly</strong><small data-i18n="pref_diabetic_sub">General food info only</small></span></span></label>
+                <label class="pref-card"><input type="radio" name="preference" value="budget-saver">
+                  <span class="pref-body"><span class="pref-icon" aria-hidden="true">🪙</span><span><strong data-i18n="pref_saver">Max savings</strong><small data-i18n="pref_saver_sub">Lowest-cost choices</small></span></span></label>
+              </div>
+              <p class="medical-note" id="medicalNote" hidden data-i18n-html="medical_note">
+                <strong>Not medical advice.</strong> "Diabetic-friendly" only means more vegetables, lentils and whole-wheat roti. It does not treat or prevent diabetes. Please ask your doctor or a dietitian about your own needs.
+              </p>
+            </fieldset>
+
+            <div class="form-actions">
+              <button type="submit" id="btnGenerate" class="btn-primary">
+                <span class="btn-spinner" aria-hidden="true"></span>
+                <span class="btn-label" id="btnGenerateLabel" data-i18n="generate">Generate meal plan</span>
+              </button>
+              <button type="button" id="btnReset" class="btn-ghost" data-i18n="reset">Reset all</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ===================== RIGHT: RESULTS ===================== -->
+      <section class="panel-results" aria-label="Meal plan results" aria-live="polite" aria-busy="false" id="resultsPanel">
+
+        <!-- Status banner -->
+        <div id="formStatusBox" class="status-box hidden" role="status">
+          <span class="status-box-icon" id="formStatusIcon" aria-hidden="true">✓</span>
+          <div class="status-box-content" id="formStatusText"></div>
+        </div>
+
+        <!-- Empty state -->
+        <div class="card empty-hero" id="emptyHero">
+          <div class="empty-art" aria-hidden="true">
+            <span class="art-chip" style="--i:0"></span><span class="art-chip" style="--i:1"></span><span class="art-chip" style="--i:2"></span><span class="art-chip" style="--i:3"></span>
+          </div>
+          <h2 data-i18n="empty_title">Your meal plan will appear here</h2>
+          <p data-i18n-html="empty_text">Enter a budget, add what you have at home, then press <strong>Generate meal plan</strong>.</p>
+          <ol class="empty-steps">
+            <li data-i18n="empty_s1">Choose daily or weekly and type an amount in ৳</li>
+            <li data-i18n="empty_s2">Add food you already have at home (optional)</li>
+            <li data-i18n="empty_s3">Pick a food preference and generate</li>
+          </ol>
+        </div>
+
+        <!-- Results (hidden until a plan exists) -->
+        <div id="resultsContent" hidden>
+
+          <!-- Summary: budget -->
+          <div class="card summary-card">
+            <div class="summary-top">
+              <div>
+                <h2 class="card-title" id="summaryTitle"><span class="title-icon" aria-hidden="true">📋</span>Your plan</h2>
+                <span class="badge-neutral" id="resultsBadge">Waiting for input</span>
+              </div>
+              <div class="summary-actions">
+                <button type="button" class="btn-shop-action" id="btnPrint" data-i18n="print">Print</button>
+              </div>
+            </div>
+            <div class="kpi-grid">
+              <div class="kpi kpi-budget"><span class="kpi-icon" aria-hidden="true">👛</span><span class="kpi-label" id="kpiBudgetLabel">Budget</span><span class="kpi-value" id="summaryBudgetAmount">৳0</span></div>
+              <div class="kpi kpi-cost"><span class="kpi-icon" aria-hidden="true">🧾</span><span class="kpi-label" id="kpiCostLabel">Estimated cost</span><span class="kpi-value" id="summaryCostAmount">৳0.00 BDT</span></div>
+              <div class="kpi kpi-remain"><span class="kpi-icon" aria-hidden="true">💚</span><span class="kpi-label" id="kpiRemainLabel">Remaining</span><span class="kpi-value cost-remaining-amount" id="summaryRemainingAmount">৳0.00 BDT</span></div>
+            </div>
+            <div class="budget-progress" aria-label="Budget used" data-i18n-attr="aria-label:budget_aria">
+              <div class="progress-track big"><div class="progress-bar" id="budgetProgressBar" style="width:0%"></div></div>
+              <div class="progress-legend"><span id="budgetProgressText">0% of budget used</span><span id="budgetProgressNote"></span></div>
+            </div>
+            <p class="adjust-note" id="adjustNote" hidden></p>
+          </div>
+
+          <!-- Weekly overview -->
+          <div class="card week-card" id="weekCard" hidden>
+            <h2 class="card-title"><span class="title-icon" aria-hidden="true">📅</span><span data-i18n="week_title">Week at a glance</span></h2>
+            <p class="card-subtitle" data-i18n="week_sub">Estimated spend per day (dashed line = your average daily allowance)</p>
+            <div class="week-chart" id="weekChart"></div>
+            <h3 class="week-menu-title" data-i18n="week_menu_title">Weekly menu</h3>
+            <div class="week-menu" id="weekMenu"></div>
+          </div>
+
+          <!-- Day tabs (weekly) -->
+          <div class="day-tabs" id="dayTabs" role="tablist" aria-label="Choose a day" data-i18n-attr="aria-label:day_tabs_aria" hidden></div>
+
+          <!-- Meal cards -->
+          <div class="meals-grid" id="mealsContainer">
+            <article class="card meal-card" id="breakfastCard"></article>
+            <article class="card meal-card" id="lunchCard"></article>
+            <article class="card meal-card" id="dinnerCard"></article>
+          </div>
+
+          <!-- Nutrition -->
+          <div class="card nutrition-card" id="nutritionSection">
+            <div class="card-header row">
+              <div>
+                <h2 class="card-title"><span class="title-icon" aria-hidden="true">🥗</span><span id="nutritionTitle">Estimated nutrition</span></h2>
+                <p class="card-subtitle" id="nutritionSubtitle">Totals of the meals shown above</p>
+              </div>
+              <span class="badge-subtle" data-i18n="estimates">Estimates</span>
+            </div>
+            <div class="nutrition-grid">
+              <div class="nutrition-pill kcal">
+                <span class="nutri-label" data-i18n="calories">Calories</span>
+                <span class="nutri-value" id="valCalories">0 <small>kcal</small></span>
+                <div class="progress-track"><div class="progress-bar" id="barCalories" style="width:0%"></div></div>
+                <span class="nutri-ref" id="refCalories"></span>
+              </div>
+              <div class="nutrition-pill protein">
+                <span class="nutri-label" data-i18n="protein">Protein</span>
+                <span class="nutri-value" id="valProtein">0 <small>g</small></span>
+                <div class="progress-track"><div class="progress-bar progress-protein" id="barProtein" style="width:0%"></div></div>
+                <span class="nutri-ref" id="refProtein"></span>
+              </div>
+              <div class="nutrition-pill carbs">
+                <span class="nutri-label" data-i18n="carbohydrates">Carbohydrates</span>
+                <span class="nutri-value" id="valCarbs">0 <small>g</small></span>
+                <div class="progress-track"><div class="progress-bar progress-carbs" id="barCarbs" style="width:0%"></div></div>
+                <span class="nutri-ref" id="refCarbs"></span>
+              </div>
+              <div class="nutrition-pill fat">
+                <span class="nutri-label" data-i18n="fat">Fat</span>
+                <span class="nutri-value" id="valFat">0 <small>g</small></span>
+                <div class="progress-track"><div class="progress-bar progress-fat" id="barFat" style="width:0%"></div></div>
+                <span class="nutri-ref" id="refFat"></span>
+              </div>
+            </div>
+            <div class="macro-split" aria-label="Share of macro energy" data-i18n-attr="aria-label:macro_aria">
+              <div class="macro-bar" id="macroBar"></div>
+              <div class="macro-legend" id="macroLegend"></div>
+            </div>
+            <p class="nutrition-note" data-i18n-html="nut_note"></p>
+          </div>
+
+          <!-- Ingredient check: home stock vs plan -->
+          <div class="card check-card" id="inventoryCheckCard">
+            <div class="card-header row">
+              <div>
+                <h2 class="card-title"><span class="title-icon" aria-hidden="true">🧺</span><span data-i18n="chk_title">Ingredient check: home stock vs this plan</span></h2>
+                <p class="card-subtitle" data-i18n="chk_sub">How much the plan needs, what you have at home, what is left and what to buy</p>
+              </div>
+              <span class="badge-subtle" data-i18n="estimates">Estimates</span>
+            </div>
+            <div class="check-summary" id="inventorySummary" role="status"></div>
+            <div class="check-table" id="inventoryCheckBody"></div>
+            <p class="check-note" data-i18n="chk_note">“Needed” amounts are estimates.</p>
+          </div>
+
+          <!-- Shopping + alternatives -->
+          <div class="secondary-grid">
+            <div class="card shopping-card" id="shoppingSection">
+              <div class="card-header row">
+                <div>
+                  <h2 class="card-title"><span class="title-icon" aria-hidden="true">🛒</span><span data-i18n="shop_title">Shopping list</span></h2>
+                  <p class="card-subtitle" id="shoppingSubtitle" data-i18n="shop_sub_day">Only what is missing from your home stock</p>
+                </div>
+                <span class="badge-subtle" id="shoppingCountBadge">0 items</span>
+              </div>
+              <div class="shopping-content" id="shoppingListContainer"></div>
+            </div>
+
+            <div class="card alternatives-card" id="alternativesSection">
+              <div class="card-header row">
+                <div>
+                  <h2 class="card-title"><span class="title-icon" aria-hidden="true">💡</span><span data-i18n="alt_title">Smart alternatives</span></h2>
+                  <p class="card-subtitle" data-i18n="alt_sub">Tips and swaps calculated from your plan</p>
+                </div>
+              </div>
+              <div class="alternatives-content" id="alternativesListContainer"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p data-i18n-html="footer_main"></p>
+      <p class="footer-subtext" data-i18n-html="footer_sub"></p>
+    </div>
+  </footer>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="data/foods.js"></script>
+  <script src="data/recipes.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/plannerEngine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
