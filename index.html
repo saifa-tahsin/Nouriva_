@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nouriva - Health & Nutrition AI Dashboard (নুরিভা এআই হেলথ ও নিউট্রিশন)</title>
+    <meta name="description" content="AI-powered personalized nutrition, health vitals, budget meal planner, and team collaboration dashboard with professional authentication." />
+    <link rel="icon" type="image/jpeg" href="./assets/nouriva-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/index-C8doX0xd.css">
+    <style>
+
+      button:has(svg.lucide-download), button:has(svg[class*="lucide-download"]) { display: none !important; }
+      section[style*="health-nutrition-banner.jpg"] {
+        min-height: 285px !important;
+        background-image: url('./assets/health-nutrition-banner.jpg') !important;
+        background-size: contain !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-color: #f7fbf4 !important;
+        border: 2px solid #356d30 !important;
+      }
+      section[style*="health-nutrition-banner.jpg"] > div:first-child {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+        padding: 18px 22px !important;
+        max-width: 340px !important;
+      }
+      section[style*="health-nutrition-banner.jpg"] > div:first-child > div:first-child {
+        margin-bottom: 0 !important;
+        background: #356d30 !important;
+        border: 1px solid #78b943 !important;
+        color: #ffffff !important;
+      }
+      section[style*="health-nutrition-banner.jpg"] > div:first-child h1,
+      section[style*="health-nutrition-banner.jpg"] > div:first-child p { display: none !important; }
+      section[style*="health-nutrition-banner.jpg"] > div:first-child > div:last-child { gap: 8px !important; }
+      section[style*="health-nutrition-banner.jpg"] > div:first-child button { white-space: nowrap !important; }
+      @media (max-width: 640px) {
+        section[style*="health-nutrition-banner.jpg"] { min-height: 240px !important; }
+        section[style*="health-nutrition-banner.jpg"] > div:first-child { padding: 12px !important; max-width: 100% !important; }
+      }
+    
+      /* Hide only the two banner action buttons requested for removal. */
+      section[style*="health-nutrition-banner.jpg"] > div:first-child > div:last-child > button:nth-child(-n+2) { display: none !important; }
+    </style>
+  </head>
+  <body class="bg-[#f7fbf4] dark:bg-[#0d170e] text-[#244b25] dark:text-[#e6f6e1]">
+    <div id="root"></div>
+    <!-- Direct Universal Script - works locally on double-click file:// and on web servers http:// -->
+    <script src="./assets/nouriva.iife.js"></script>
+  
+<script>
+(function () {
+  function mountMember4Module() {
+    var labels = document.querySelectorAll('span');
+    for (var i = 0; i < labels.length; i++) {
+      if ((labels[i].textContent || '').trim() !== 'Feature 04 · Tahsin Saba Aroby') continue;
+      var root = labels[i];
+      for (var depth = 0; root && depth < 10; depth++, root = root.parentElement) {
+        var cls = typeof root.className === 'string' ? root.className : '';
+        if (cls.indexOf('rounded-3xl') !== -1 && cls.indexOf('overflow-hidden') !== -1 && cls.indexOf('shadow-xs') !== -1) {
+          if (root.querySelector('iframe[data-member4-app]')) break;
+          var children = Array.prototype.slice.call(root.children);
+          children.forEach(function (child) { child.style.display = 'none'; });
+          root.style.padding = '0';
+          root.style.height = 'auto';
+          var frame = document.createElement('iframe');
+          frame.setAttribute('data-member4-app', 'true');
+          frame.title = 'Nouriva Feature 4 Daily Nutrition Tracker and Food Assistant';
+          frame.src = './member4/tracker.html';
+          frame.style.cssText = 'display:block;width:100%;height:1050px;border:0;background:#f5f8f3;';
+          frame.loading = 'lazy';
+          root.appendChild(frame);
+          break;
+        }
+      }
+    }
+  }
+  var observer = new MutationObserver(mountMember4Module);
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountMember4Module);
+  } else {
+    mountMember4Module();
+  }
+})();
+</script>
+
+<script>
+(function () {
+  var modules = [
+    { label: 'Feature 01 · Jannatul Ferdous Jenny', src: './feature1/index.html', title: 'Nouriva Feature 1 AI Food & Health Scanner', height: '1450px' },
+    { label: 'Feature 03 · Saifa Tahsin', src: './feature3/index.html', title: 'Nouriva Feature 3 Budget-Aware AI Meal Planner', height: '1700px' }
+  ];
+  function mountFeatureModules() {
+    modules.forEach(function (module) {
+      var labels = document.querySelectorAll('span');
+      for (var i = 0; i < labels.length; i++) {
+        if ((labels[i].textContent || '').trim() !== module.label) continue;
+        var root = labels[i];
+        for (var depth = 0; root && depth < 10; depth++, root = root.parentElement) {
+          var cls = typeof root.className === 'string' ? root.className : '';
+          if (cls.indexOf('rounded-3xl') !== -1 && cls.indexOf('overflow-hidden') !== -1 && cls.indexOf('shadow-xs') !== -1) {
+            if (root.querySelector('iframe[data-nouriva-module="' + module.src + '"]')) break;
+            Array.prototype.slice.call(root.children).forEach(function (child) { child.style.display = 'none'; });
+            root.style.padding = '0'; root.style.height = 'auto';
+            var frame = document.createElement('iframe');
+            frame.setAttribute('data-nouriva-module', module.src);
+            frame.title = module.title; frame.src = module.src;
+            frame.style.cssText = 'display:block;width:100%;height:' + module.height + ';border:0;background:#f7fbf4;';
+            frame.loading = 'lazy'; root.appendChild(frame); break;
+          }
+        }
+      }
+    });
+  }
+  var observer = new MutationObserver(mountFeatureModules);
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountFeatureModules);
+  else mountFeatureModules();
+})();
+</script>
+
+</body>
+</html>
