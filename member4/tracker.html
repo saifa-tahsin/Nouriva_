@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Food Tracker – Learn Sphere</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="feature4-header">
+  <div class="header-topline"><div><h1 data-i18n="trackerTitle">Daily Nutrition Tracker</h1>
+  <p data-i18n="trackerSub">Log what you eat and see your daily totals.</p></div><label class="language-control"><span data-i18n="language">Language</span><select id="languageSelect" aria-label="Language"><option value="en">English</option><option value="bn">বাংলা</option><option value="hi">हिन्दी</option></select></label></div>
+  <nav>
+    <a href="tracker.html" class="active" data-i18n="foodLog">Food Log</a>
+    <a href="assistant.html" data-i18n="foodAssistant">Food Assistant</a>
+  </nav>
+</header>
+
+<!-- ============================================================================
+     PART A — DAILY NUTRITION & FOOD HABIT TRACKER  (HTML)
+     ============================================================================ -->
+<main class="grid">
+  <div>
+    <!-- A.1: Log breakfast / lunch / dinner / snacks -->
+    <div class="card">
+      <h2 data-i18n="addFood">Add food</h2>
+      <label for="logDate" data-i18n="date">Date</label>
+      <input type="date" id="logDate">
+      <div class="row">
+        <div><label for="logMeal" data-i18n="meal">Meal</label>
+          <select id="logMeal">
+            <option value="breakfast" data-i18n="breakfast">Breakfast</option>
+            <option value="lunch" data-i18n="lunch">Lunch</option>
+            <option value="dinner" data-i18n="dinner">Dinner</option>
+            <option value="snack" data-i18n="snack">Snack</option>
+          </select></div>
+        <div><label for="logQty" data-i18n="quantity">Quantity</label>
+          <input type="number" id="logQty" min="0.25" step="0.25" value="1"></div>
+      </div>
+      <label for="logFood" data-i18n="food">Food</label>
+      <select id="logFood"></select>
+      <button class="btn" id="addBtn" data-i18n="addLog">Add to log</button>
+      <p class="note" data-i18n="approx">Values are approximate and use common serving sizes.</p>
+    </div>
+
+    <!-- A.3: User-defined nutrition goals -->
+    <div class="card">
+      <h2 data-i18n="goals">My daily goals</h2>
+      <div class="row">
+        <div><label for="gKcal" data-i18n="calories">Calories (kcal)</label><input type="number" id="gKcal" min="0"></div>
+        <div><label for="gP" data-i18n="protein">Protein (g)</label><input type="number" id="gP" min="0"></div>
+      </div>
+      <div class="row">
+        <div><label for="gC" data-i18n="carbs">Carbs (g)</label><input type="number" id="gC" min="0"></div>
+        <div><label for="gF" data-i18n="fat">Fat (g)</label><input type="number" id="gF" min="0"></div>
+      </div>
+      <button class="btn ghost" id="saveGoals" data-i18n="saveGoals">Save goals</button>
+    </div>
+  </div>
+
+  <div>
+    <!-- A.2 + A.3: Daily totals and progress toward goals -->
+    <div class="card">
+      <h2 id="summaryTitle" data-i18n="today">Today's summary</h2>
+      <div id="progress"></div>
+    </div>
+    <!-- A.4: Entries for the selected date, grouped by meal -->
+    <div class="card">
+      <h2 data-i18n="entries">Food entries</h2>
+      <div id="entries"></div>
+    </div>
+    <!-- A.4: Previous days (food history) -->
+    <div class="card">
+      <h2 data-i18n="history">Previous days</h2>
+      <div id="history"></div>
+    </div>
+  </div>
+</main>
+
+<script src="js/language.js"></script>
+<script src="js/common.js"></script>
+<script src="js/tracker.js"></script>
+</body>
+</html>
